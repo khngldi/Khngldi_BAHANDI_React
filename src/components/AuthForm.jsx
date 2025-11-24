@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
+import "./authform.css";
 
 function AuthForm({ mode = "login" }) {
 
@@ -35,38 +36,35 @@ function AuthForm({ mode = "login" }) {
     };
 
     return (
-        <div>
+        <div className="auth-form-container">
             <h2>{title}</h2>
-
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Email:</label>
                     <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Введите email..."
                         required
                     />
                 </div>
-
                 <div>
-                    <label>Password:</label>
                     <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Введите пароль..."
                         required
                     />
                 </div>
-
                 <button type="submit" disabled={loading}>
                     {loading ? "Загрузка..." : buttonText}
                 </button>
             </form>
-
-            {message && <p>{message}</p>}
+            {message && <p className="auth-message">{message}</p>}
         </div>
     );
+
 }
 
 export default AuthForm;

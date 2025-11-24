@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
+
+.auth-form-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px 25px;
+    background: #0a7f3f;
+    border-radius: 10px;
+    color: white;
+    font-family: 'Jockey One', sans-serif;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.auth-form-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    margin-top: auto;
+    font-size: 28px;
+    color: #ff8c00;
+}
+
+.auth-form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-form-container label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.auth-form-container input {
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #ffffff;
+    color: #333;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+    width: 370px;
+}
+
+.auth-form-container input::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+.auth-form-container input:focus {
+    border-color: #ff8c00;
+    box-shadow: 0 0 6px rgba(255, 140, 0, 0.5);
+}
+
+.auth-form-container button[type="submit"] {
+    padding: 10px 0;
+    border: none;
+    border-radius: 6px;
+    background: #ff8c00;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth-form-container button[type="submit"]:hover {
+    background: darkorange;
+    transform: translateY(-2px);
+}
+
+.auth-message {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 14px;
+    color: #ffcc00;
+}
+
+@media (max-width: 480px) {
+    .auth-form-container {
+        margin: 30px 15px;
+        padding: 25px 20px;
+    }
+}

@@ -51,15 +51,26 @@ export default function Navbar() {
 
                 {!isAuthenticated ? (
                     <>
-                        <li><button className="auth-btn login-btn">Войти</button></li>
-                        <li><button className="auth-btn register-btn">Зарегистрироваться</button></li>
+                        <li>
+                            <Link to="/login">
+                                <button className="auth-btn login-btn">Войти</button>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/register">
+                                <button className="auth-btn register-btn">Зарегистрироваться</button>
+                            </Link>
+                        </li>
                     </>
                 ) : (
                     <>
                         <li className="user-email">{user?.email}</li>
-                        <li><button className="auth-btn register-btn" onClick={logout}>Выйти</button></li>
+                        <li>
+                            <button className="auth-btn register-btn" onClick={logout}>Выйти</button>
+                        </li>
                     </>
                 )}
+
             </ul>
         </nav>
     );
