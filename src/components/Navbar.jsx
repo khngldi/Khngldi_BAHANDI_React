@@ -1,20 +1,20 @@
 import { Link, useSearchParams, useLocation } from "react-router-dom";
 import "./navbar.css";
 import { useState } from "react";
+import { useAuth } from "./AuthContext";
 
 export default function Navbar() {
-
     const location = useLocation();
     const isFoodsPage = location.pathname.startsWith("/foods");
 
     const [searchParams, setSearchParams] = useSearchParams();
     const SearchQuery = searchParams.get("search") || "";
-
     const [searchFoods, setSearchFoods] = useState(SearchQuery);
+
+    const { user, isAuthenticated, logout } = useAuth();
 
     const handleSearch = (e) => {
         e.preventDefault();
-
         const newParams = new URLSearchParams(searchParams);
 
         if (searchFoods.trim()) {
@@ -44,11 +44,22 @@ export default function Navbar() {
                 </form>
             )}
 
-
             <ul className="navbar-links">
                 <li><Link to="/foods?type=chicken" className="navbar-link">Чикенс</Link></li>
                 <li><Link to="/foods?type=drink" className="navbar-link">Дринкс</Link></li>
                 <li><button className="cart-btn">Корзина</button></li>
+
+                {!isAuthenticated ? (
+                    <>
+                        <li><button className="auth-btn login-btn">Войти</button></li>
+                        <li><button className="auth-btn register-btn">Зарегистрироваться</button></li>
+                    </>
+                ) : (
+                    <>
+                        <li className="user-email">{user?.email}</li>
+                        <li><button className="auth-btn register-btn" onClick={logout}>Выйти</button></li>
+                    </>
+                )}
             </ul>
         </nav>
     );
