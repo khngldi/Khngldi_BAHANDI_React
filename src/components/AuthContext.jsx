@@ -10,29 +10,35 @@ export const AuthProvider = ({ children }) => {
         if (!storedUser || storedUser === "undefined") return null;
 
         try {
-            return JSON.parse(storedUser);
+            const userObj = JSON.parse(storedUser);
+            if (!userObj.email) return null;
+            return userObj;
         } catch {
             console.error("Ошибка парсинга authUser");
             return null;
         }
     };
 
+
     const [token, setToken] = useState(localStorage.getItem("authToken"));
     const [user, setUser] = useState(getInitialUser());
     const isAuthenticated = !!token;
 
-    const loginSuccess = (userData, userToken) => {
+    const loginSuccess = (userData, userToken, email) => {
+        const user = { ...userData, email };
+
         setToken(userToken);
-        setUser(userData);
+        setUser(user);
 
         localStorage.setItem("authToken", userToken);
-        localStorage.setItem("authUser", JSON.stringify(userData));
+        localStorage.setItem("authUser", JSON.stringify(user));
     };
+
 
     const register = async (email, password) => {
         try {
             const response = await fetch(
-                `https://mokky.dev/projects/8793bad894280e6b/register`,
+                `https://8793bad894280e6b.mokky.dev/register`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -42,9 +48,10 @@ export const AuthProvider = ({ children }) => {
 
             const data = await response.json();
             if (response.ok) {
-                loginSuccess(data.user, data.token);
+                loginSuccess(data.user, data.token, email);
                 return { success: true };
             }
+
             return { success: false, error: data.message || "Ошибка" };
         } catch {
             return { success: false, error: "Ошибка сети" };
@@ -54,7 +61,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             const response = await fetch(
-                `https://mokky.dev/projects/8793bad894280e6b/auth`,
+                `https://8793bad894280e6b.mokky.dev/auth`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -64,7 +71,7 @@ export const AuthProvider = ({ children }) => {
 
             const data = await response.json();
             if (response.ok) {
-                loginSuccess(data.user, data.token);
+                loginSuccess(data.user, data.token, email);
                 return { success: true };
             }
 
